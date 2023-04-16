@@ -1,5 +1,6 @@
 #include <Wire.h>
-#define PinAnalogiqueHumidite 0
+#include <ArduinoJson.h>
+#define PinAnalogiqueHumidite 10
 int pourcentage = 0;
 int hsol;
 void setup() {
@@ -9,16 +10,23 @@ void setup() {
 }
 
 void loop() {
- hsol = analogRead(PinAnalogiqueHumidite);
- pourcentage = Conversion(hsol);
 
-    Serial.println(pourcentage);
-    delay(20);
+  hsol = analogRead(PinAnalogiqueHumidite);
+  StaticJsonDocument<200> doc;
+  doc["sensor"] = "humidité";
 
-  }
+  pourcentage = Conversion(hsol);
+  doc["value"] = pourcentage;
+
+  char jsonBuffer[256];
+  serializeJson(doc, jsonBuffer);
+  Serial.println(jsonBuffer);  
+  delay(1000);
+
+}
  int Conversion(int value){
  int ValeurPorcentage = 0;
  ValeurPorcentage = map(value, 1023, 0, 0, 100);
- Serial.println(ValeurPorcentage);
  return ValeurPorcentage;
-  }
+}
+
