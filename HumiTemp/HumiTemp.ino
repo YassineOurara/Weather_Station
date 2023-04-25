@@ -2,7 +2,7 @@
 #include <DallasTemperature.h>
 #include <ArduinoJson.h>
 #include <Wire.h>
-#define PinAnalogiqueHumidite 11
+#define PinAnalogiqueHumidite A0
 int pourcentage = 0;
 int hsol;
 // Data wire is conntec to the Arduino digital pin 4
