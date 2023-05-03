@@ -36,7 +36,7 @@ void loop()
   delay(1000);  // Delay of 1000 milli seconds or 1 second
   mySerial.println("AT+CMGS=\"+212665218522\"\r"); // Replace x with mobile number
   delay(1000);
-  mySerial.println("7mwar 7mar 7mara");// The SMS text you want to send
+  mySerial.println("7mwar 7mar hh");// The SMS text you want to send
   delay(100);
    mySerial.println((char)26);// ASCII code of CTRL+Z
   delay(1000);
