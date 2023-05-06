@@ -6,11 +6,11 @@ import serial
 
 
 # configure the serial port
-ser = serial.Serial('COM6', 9600)
+ser = serial.Serial('COM3', 9600)
 
 
 # open the output file
-filename = "humitemp.json"
+filename = "htdata2.json"
 f = open(filename, "w")
 
 # read data from the serial port and write it to the output file
