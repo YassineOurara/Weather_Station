@@ -2,9 +2,10 @@
 
 // Set up the GSM shield SIM900
 GSM gsmAccess;
-const char* GPRS_APN = "your_apn";
-const char* GPRS_LOGIN = "your_username";
-const char* GPRS_PASSWORD = "your_password";
+const char* GPRS_APN = "Orange";
+const char* GPRS_LOGIN = "Orange";
+const char* GPRS_PASSWORD = "Orange";
+
 
 // Set up the internet connection
 GPRS gprs;
