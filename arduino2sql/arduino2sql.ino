@@ -4,9 +4,9 @@
 
 // Set up the GSM shield SIM900
 SoftwareSerial sim900(7, 8); // RX, TX
-String apn = "internet.orange.ma";
-String gsm_user = "MEDINET";
-String gsm_password = "MEDINET";
+String apn = "www.iamgprs1.ma";
+String gsm_user = "";
+String gsm_password = "";
 
 // Set up the MySQL database connection
 IPAddress server_ip(127, 0, 0, 1); // Replace with your server IP address
