@@ -25,7 +25,6 @@ void loop()
 
  if (mySerial.available()>0)
    Serial.write(mySerial.read());
-// 
 // SendMessage();
 }
 
