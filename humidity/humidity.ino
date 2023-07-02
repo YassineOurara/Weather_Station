@@ -1,6 +1,6 @@
 #include <Wire.h>
 #include <ArduinoJson.h>
-#define PinAnalogiqueHumidite 10
+#define PinAnalogiqueHumidite A0
 int pourcentage = 0;
 int hsol;
 void setup() {
