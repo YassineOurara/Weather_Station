@@ -4,41 +4,57 @@
 #include <HTTPClient.h>
 #include <WiFiClient.h>
 #include <WebServer.h>
+#include <String.h>
 #include <ESPmDNS.h>
+
+#define RXD2 16
+#define TXD2 17
+String moist = "";
+String temp = "";
+
 //  #define moisturePin 36 //A0
 // const int moisturePin = 33; //A5
 // const int moisturePin = A0; //A0
-#define ONE_WIRE_BUS 15
-OneWire oneWire(ONE_WIRE_BUS);
-DallasTemperature sensors(&oneWire);
-const int moisturePin = A0;
+// #define ONE_WIRE_BUS 10
+// OneWire oneWire(ONE_WIRE_BUS);
+// DallasTemperature sensors(&oneWire);
+// const int moisturePin = A0; 
 int pourcentage = 0;
-const char* ssid = "TP-LINK_5A3FD6";
-const char* password = "43642670";
-const char* serverURL = "http://192.168.1.105/lms/htsendesp32.php";
+// const char* ssid = "TP-LINK_5A3FD6";
+// const char* password = "43642670";
+// const char* serverURL = "http://192.168.1.105/lms/htsendesp32.php";
+const char* ssid = "Yassine";
+const char* password = "AaBbCc@#@#@#2022";
+const char* serverURL = "http://192.168.1.19/lms/htsendesp32.php";
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
+  Serial2.begin(9600, SERIAL_8N1, RXD2, TXD2);
+
   connectWiFi();
 }
 
 void loop() {
-    // Call sensors.requestTemperatures() to issue a global temperature and Requests to all devices on the bus
-  sensors.requestTemperatures();
-  int temValue =  sensors.getTempCByIndex(0);
+  String moist = Serial2.readString();
+  // String temp = Serial2.readString();
 
-  int moistureValue = analogRead(moisturePin);
-
-  // Serial.println(moistureValue);
+  int moistureValue = moist.toInt();
   int moisturePercentage = map(moistureValue, 1023, 0, 0, 100);
-  // int moisturePercentage = ( 100 - ( (moistureValue/4095.00) * 100 ) );
-  sendMoistureData(moisturePercentage);
-  sendtempData(temValue);
-  // sendMoistureData(moistureValue);
+  // int temValue = temp.toInt();
 
+  sendMoistureData(moisturePercentage);
+  sendtempData(0);
+  delay(1000);
+
+  // Serial.println(moisturePercentage);
+  // int moisturePercentage = ( 100 - ( (moistureValue/4095.00) * 100 ) ); 
+  // Serial.println(moist);
+  // int moistureValue = analogRead(moisturePin);
+  // Serial.println(moistureValue);
+  // sendMoistureData(moistureValue);
   // pourcentage = Conversion(moistureValue);
   // sendMoistureData(pourcentage);
-  delay(1000);
+
 }
 // int Conversion(int value) {
 //   int ValeurPorcentage = 0;

@@ -16,12 +16,13 @@ void loop() {
   doc["sensor"] = "humidité";
 
   pourcentage = Conversion(hsol);
-  doc["value"] = pourcentage;
+  Serial.println(pourcentage);
+  // doc["value"] = pourcentage;
 
-  char jsonBuffer[256];
-  serializeJson(doc, jsonBuffer);
-  Serial.println(jsonBuffer);  
-  delay(1000);
+  // char jsonBuffer[256];
+  // serializeJson(doc, jsonBuffer);
+  // Serial.println(jsonBuffer);  
+  delay(1500);
 
 }
  int Conversion(int value){
