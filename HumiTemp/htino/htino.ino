@@ -32,7 +32,10 @@ void loop(void){
   StaticJsonDocument<200> doc;
   hsol = analogRead(PinAnalogiqueHumidite);
   pourcentage = Conversion(hsol);
-  Serial.println(pourcentage);
+  //Serial.print("H : ");
+  String data = String(pourcentage) + "," + String(sensors.getTempCByIndex(0));
+  Serial.println(data);
+  // Serial.print("T : ");
   // Serial.println(sensors.getTempCByIndex(0));
 
   doc["id"] = i;
@@ -40,20 +43,20 @@ void loop(void){
   doc["Temperature"] = sensors.getTempCByIndex(0);
   
 
-  i++;
-  char jsonBuffer[256];
-      serializeJson(doc, jsonBuffer);
+  // i++;
+  // char jsonBuffer[256];
+  //     serializeJson(doc, jsonBuffer);
 
-  if (i == 1) {
-    Serial.print("[");
-  } else {
-    Serial.print(",");
-  }
-  Serial.print(jsonBuffer);
-  if (i == 500) {
-    Serial.println("]");
-    i = 0;
-  }
+  // if (i == 1) {
+  //   Serial.print("[");
+  // } else {
+  //   Serial.print(",");
+  // }
+  // Serial.print(jsonBuffer);
+  // if (i == 500) {
+  //   Serial.println("]");
+  //   i = 0;
+  // }
   delay(500); 
 }
 

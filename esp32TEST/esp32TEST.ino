@@ -23,27 +23,51 @@ int pourcentage = 0;
 // const char* ssid = "TP-LINK_5A3FD6";
 // const char* password = "43642670";
 // const char* serverURL = "http://192.168.1.105/lms/htsendesp32.php";
-const char* ssid = "Yassine";
-const char* password = "AaBbCc@#@#@#2022";
-const char* serverURL = "http://192.168.1.19/lms/htsendesp32.php";
+const char* ssid = "LINGUA CAFE II";
+const char* password = "ABCD2022";
+const char* serverURL = "http://192.168.1.119/lms/htsendesp32.php";
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial2.begin(9600, SERIAL_8N1, RXD2, TXD2);
 
   connectWiFi();
 }
 
 void loop() {
-  String moist = Serial2.readString();
-  // String temp = Serial2.readString();
+  if (Serial2.available()) {
+    String data = Serial2.readStringUntil('\n');
+    
+    // Split the received data using the delimiter
+    int delimiterIndex = data.indexOf(',');
+    if (delimiterIndex != -1) {
+      String value1String = data.substring(0, delimiterIndex);
+      String value2String = data.substring(delimiterIndex + 1);
 
-  int moistureValue = moist.toInt();
-  int moisturePercentage = map(moistureValue, 1023, 0, 0, 100);
+      int value1 = value1String.toInt();
+      int value2 = value2String.toInt();
+
+      // Process the received values
+      // ...
+      
+      // Print the received values
+      Serial.print("Hum: ");
+      Serial.println(value1);
+      Serial.print("Temp: ");
+      Serial.println(value2);
+
+      sendData(value1, value2);
+    }
+  }
+  // String moist = Serial2.readString();
+  // // String temp = Serial2.readString();
+
+  // int moistureValue = moist.toInt();
   // int temValue = temp.toInt();
+  // Serial.println(moistureValue);
 
-  sendMoistureData(moisturePercentage);
-  sendtempData(0);
+  // sendMoistureData(moistureValue);
+  // sendtempData(0);
   delay(1000);
 
   // Serial.println(moisturePercentage);
@@ -56,17 +80,12 @@ void loop() {
   // sendMoistureData(pourcentage);
 
 }
-// int Conversion(int value) {
-//   int ValeurPorcentage = 0;
-//   ValeurPorcentage = map(value, 1023, 0, 0, 100);
-//   return ValeurPorcentage;
-// }
-void sendMoistureData(int moisture) {
+void sendData(int moisture, int temperature) {
   if (WiFi.status() == WL_CONNECTED) {
     WiFiClient client;
     HTTPClient http;
 
-    String postData = "moisture=" + String(moisture);
+    String postData = "moisture=" + String(moisture) + "&temperature=" + String(temperature);
     http.begin(client, serverURL);
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
@@ -83,34 +102,11 @@ void sendMoistureData(int moisture) {
     }
     http.end();
     Serial.print("Moisture Data: ");
-    Serial.println(postData);
+    Serial.println(moisture);
+    Serial.print("Temperature Data: ");
+    Serial.println(temperature);
     Serial.print("HTTP code: ");
     Serial.println(httpCode);
-  }
-}
-
-
-void sendtempData(int temp) {
-  if (WiFi.status() == WL_CONNECTED) {
-    WiFiClient client;
-    HTTPClient http;
-
-    String postData = "temperature=" + String(temp);
-    http.begin(client, serverURL);
-    http.addHeader("Content-Type", "application/x-www-form-urlencoded");
-
-    int httpCode = http.POST(postData);
-    if (httpCode > 0) {
-      if (httpCode == HTTP_CODE_OK) {
-        String response = http.getString();
-        Serial.println(response);
-      } else {
-        Serial.printf("[HTTP] POST... code: %d\n", httpCode);
-      }
-    } else {
-      Serial.printf("[HTTP] POST... failed, error: %s\n", http.errorToString(httpCode).c_str());
-    }
-    http.end();
   }
 }
 

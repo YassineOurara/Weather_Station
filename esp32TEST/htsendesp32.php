@@ -12,14 +12,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $moisture = $_POST["moisture"];
     $temperature = $_POST["temperature"];
     
-    // $sql = "INSERT INTO `soil_humi_table` (`val_humi`) VALUES ($moisture)";
+    // Escape the values to prevent SQL injection
+    $moisture = mysqli_real_escape_string($con, $moisture);
+    $temperature = mysqli_real_escape_string($con, $temperature);
+    
     $sql = "INSERT INTO soil_humitemp_table (val_humi, val_temp) VALUES ('$moisture', '$temperature')";
-
     
     if ($con->query($sql) === TRUE) {
-        echo "Number stored successfully";
+        echo "Data stored successfully";
     } else {
-        echo "Error storing number: " . $con->error;
+        echo "Error storing data: " . $con->error;
     }
 }
 
