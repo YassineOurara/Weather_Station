@@ -12,20 +12,19 @@
 String moist = "";
 String temp = "";
 
-//  #define moisturePin 36 //A0
-// const int moisturePin = 33; //A5
-// const int moisturePin = A0; //A0
-// #define ONE_WIRE_BUS 10
-// OneWire oneWire(ONE_WIRE_BUS);
-// DallasTemperature sensors(&oneWire);
-// const int moisturePin = A0; 
 int pourcentage = 0;
 // const char* ssid = "TP-LINK_5A3FD6";
 // const char* password = "43642670";
 // const char* serverURL = "http://192.168.1.105/lms/htsendesp32.php";
-const char* ssid = "LINGUA CAFE II";
-const char* password = "ABCD2022";
-const char* serverURL = "http://192.168.1.119/lms/htsendesp32.php";
+// const char* ssid = "LINGUA CAFE II";
+// const char* password = "ABCD2022";
+// const char* serverURL = "http://192.168.1.119/lms/htsendesp32.php";
+const char* ssid = "Yassine";
+const char* password = "AaBbCc@#@#@#2022";
+const char* serverURL = "http://192.168.1.19/lms/htsendesp32.php";
+
+
+
 
 void setup() {
   Serial.begin(115200);
