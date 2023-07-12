@@ -8,9 +8,9 @@
 // const char* password = "6ECSPXQ3Z4Y37NRKKN";
 // const char* serverURL = "http://192.168.11.124:8080/addWeatherStationData";
 
-const char* ssid = "Oumaima's Galaxy S21 5G";
-const char* password = "benaboud1";
-const char* serverURL = "http://192.168.154.27:8080/addWeatherStationData";
+const char* ssid = "Yassine";
+const char* password = "AaBbCc@#@#@#2022";
+const char* serverURL = "http://192.168.1.28:8080/addWeatherStationData";
 
 void setup() {
   Serial.begin(115200);
